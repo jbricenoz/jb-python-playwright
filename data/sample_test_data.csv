@@ -1,0 +1,6 @@
+test_case_id,description,search_term,expected_result
+TC001,Search for jackets,jacket,Product grid displays jackets
+TC002,Search for pants,pants,Product grid displays pants
+TC003,Search for nonexistent item,unicorn,No products found message is shown
+TC004,Add item to cart,hoodie,Cart counter increases
+TC005,Check empty cart,,Cart is empty message is shown

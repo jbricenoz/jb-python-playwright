@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+venv/
+
+# Pytest cache
+.pytest_cache/
+
+# Playwright downloads
+.playwright/
+
+# VSCode
+.vscode/

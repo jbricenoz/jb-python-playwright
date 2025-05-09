@@ -1,0 +1,34 @@
+name: Playwright Cross-Browser Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          playwright install --with-deps
+
+      - name: Run Playwright tests (${{ matrix.browser }})
+        run: |
+          source venv/bin/activate
+          pytest e2e/ --browser=${{ matrix.browser }} --headless --retries=1 --trace=on

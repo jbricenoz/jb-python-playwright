@@ -1,0 +1,27 @@
+name: Playwright Python Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r playwright/requirements.txt
+        playwright install --with-deps
+    - name: Run tests
+      run: |
+        source venv/bin/activate
+        pytest playwright/e2e/

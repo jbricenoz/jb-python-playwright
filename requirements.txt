@@ -1,0 +1,10 @@
+pytest
+playwright
+pytest-playwright
+pytest-html
+pytest-json-report
+pytest-xdist
+fastapi
+uvicorn
+requests
+pydantic
