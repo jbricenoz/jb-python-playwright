@@ -19,9 +19,11 @@ jobs:
       run: |
         python -m venv venv
         source venv/bin/activate
-        pip install -r playwright/requirements.txt
+        python -m pip install --upgrade pip
+        python -m pip install pytest
+        python -m pip install -r requirements.txt
         playwright install --with-deps
     - name: Run tests
       run: |
         source venv/bin/activate
-        pytest playwright/e2e/
+        pytest e2e/
