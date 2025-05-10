@@ -10,6 +10,11 @@ class HomePage:
         self.header_content = HeaderContent(page)
         self.nav_sections = NavSections(page)
         self.panel_navbar = PanelNavbar(page)
+        
+        # Search results locators
+        self.no_results_message = page.locator('.message.notice')
+        self.search_results = page.locator('.product-items .product-item')
+        self.product_links = page.locator('.product-item-link')
 
     # Proxy method for navigation menu visibility
     def is_nav_menu_visible(self):
@@ -39,6 +44,29 @@ class HomePage:
     # Example: proxying a method from a subcomponent
     def search(self, query: str):
         self.header_content.search(query)
+        
+    def has_search_results(self):
+        """Check if search returned any results"""
+        return not self.no_results_message.is_visible() and self.search_results.count() > 0
+        
+    def search_with_fallback(self, query: str, fallback_query: str="jacket"):
+        """Search with a query and fallback to another query if no results"""
+        self.search(query)
+        self.page.wait_for_timeout(1000)  # Wait for search results to load
+        
+        if not self.has_search_results():
+            print(f"Search for '{query}' returned no results. Trying with '{fallback_query}' instead.")
+            self.search(fallback_query)
+            self.page.wait_for_timeout(1000)  # Wait for new search results to load
+            
+    def get_first_product(self):
+        """Get the first product from search results"""
+        first_product = self.product_links.first
+        product_name = first_product.text_content()
+        return {
+            "link": first_product,
+            "name": product_name.strip()
+        }
 
     def get_menu_items_text(self):
         return self.nav_sections.get_menu_items_text()

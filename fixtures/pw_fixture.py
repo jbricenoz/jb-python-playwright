@@ -1,6 +1,8 @@
 import pytest
 from playwright.sync_api import sync_playwright
 from components.home.homepage import HomePage
+from components.product.product_page import ProductPage
+from components.checkout.checkout_page import CheckoutPage
 from service.csv_service import CSVService
 from service.email_service import EmailService
 
@@ -27,12 +29,13 @@ def page(browser_type):
         browser = getattr(p, browser_type).launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
+        page.wait_for_load_state("networkidle")
         yield page
         context.close()
         browser.close()
 
 @pytest.fixture
-def homepage(page, pytestconfig):
+def homepage(page, pytestconfig, autouse=True):
     base_url = pytestconfig.getoption('base_url') or pytestconfig.getini('base_url')
     if not base_url:
         raise RuntimeError("base_url is not set in pytest or playwright config.")
@@ -47,5 +50,22 @@ def csv_service():
 @pytest.fixture
 def email_service():
     return EmailService()
+
+@pytest.fixture
+def product_page(homepage):
+    return ProductPage(homepage.page)
+
+@pytest.fixture
+def checkout_page(homepage):
+    return CheckoutPage(homepage.page)
+
+@pytest.fixture(autouse=True)
+def before_and_after(page, email_service):
+    # Before hook
+    print("[Setup]")
+    yield
+    # After hook
+    print("[Teardown]")
+    email_service.send_report_email()
 
 # You can add more project-wide fixtures here as needed.

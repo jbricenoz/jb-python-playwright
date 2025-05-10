@@ -79,10 +79,23 @@ email_service.send_email(
 ## How to Use This Framework
 
 ### 1. Setup Environment
+
 ```bash
+# create a directory for the project (Optional)
+mkdir my_workspace
+cd my_workspace
+# clone the repository
+git clone https://github.com/jbricenoz/jb-python-playwright.git
+# cd into the project directory
+cd jb-python-playwright
+# create a virtual environment and activate it
 python3 -m venv venv
 source venv/bin/activate
+# upgrade pip
+pip install --upgrade pip
+# install dependencies
 pip install -r requirements.txt
+# install playwright
 playwright install
 ```
 
@@ -126,6 +139,27 @@ Remove `--headed` or add `--headless`:
 To run only tests with a specific marker (e.g., homepage):
 ```sh
 ./pw.sh -m homepage --headed -n 3
+```
+
+### How to run this test file:
+
+```sh
+# Run all homepage tests (with output)
+pytest -v e2e/test_homepage.py
+
+# Run only homepage tests with 'homepage' marker
+pytest -m homepage e2e/test_homepage.py
+
+# Run all smoke tests
+pytest -m smoke
+
+# To see print output, use:
+pytest -s e2e/test_homepage.py
+
+# Run with Playwright browser options (examples):
+pytest e2e/test_homepage.py --browser=firefox --headless
+pytest e2e/test_homepage.py --browser=webkit --trace=on --video=on
+pytest e2e/test_homepage.py --workers=2 --retries=1
 ```
 
 ### Reports

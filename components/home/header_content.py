@@ -41,6 +41,7 @@ class HeaderContent:
         self.page.wait_for_selector('div.mage-dropdown-dialog', state='hidden')
 
     def search(self, query: str):
+        self.search_input.fill('')
         self.search_input.fill(query)
         self.search_button.click()
         self.page.wait_for_load_state('networkidle')

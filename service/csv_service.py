@@ -1,4 +1,5 @@
 import csv
+import random
 from typing import List, Dict
 from pathlib import Path
 
@@ -19,3 +20,19 @@ class CSVService:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(data)
+
+    @staticmethod
+    def async_read_csv(file_path: str) -> List[Dict[str, str]]:
+        return CSVService.read_csv(file_path)
+
+    @staticmethod
+    def search_terms(file_path: str) -> List[str]:
+        """Synchronous version of async_search_terms for use in pytest parametrize"""
+        search_data = CSVService.read_csv(file_path)
+        return [row['search_term'].strip() for row in search_data if row.get('search_term', '').strip()]
+
+    @staticmethod
+    def get_random_search_term(file_path: str) -> str:
+        """Get a random search term from the CSV file"""
+        search_data = CSVService.read_csv(file_path)
+        return random.choice(search_data)['search_term'].strip()

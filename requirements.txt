@@ -4,6 +4,7 @@ pytest-playwright
 pytest-html
 pytest-json-report
 pytest-xdist
+pytest-asyncio
 fastapi
 uvicorn
 requests
