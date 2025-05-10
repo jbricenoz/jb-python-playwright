@@ -3,6 +3,7 @@ from playwright.sync_api import sync_playwright
 from components.home.homepage import HomePage
 from components.product.product_page import ProductPage
 from components.checkout.checkout_page import CheckoutPage
+from components.orders.orders_returns import OrdersReturnsPage
 from service.csv_service import CSVService
 from service.email_service import EmailService
 
@@ -29,7 +30,7 @@ def page(browser_type):
         browser = getattr(p, browser_type).launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
-        page.wait_for_load_state("networkidle")
+        # page.wait_for_load_state("networkidle")
         yield page
         context.close()
         browser.close()
@@ -40,6 +41,7 @@ def homepage(page, pytestconfig, autouse=True):
     if not base_url:
         raise RuntimeError("base_url is not set in pytest or playwright config.")
     page.goto(base_url)
+    page.wait_for_timeout(1000)
     home = HomePage(page)
     return home
 
@@ -58,6 +60,10 @@ def product_page(homepage):
 @pytest.fixture
 def checkout_page(homepage):
     return CheckoutPage(homepage.page)
+
+@pytest.fixture
+def orders_returns_page(homepage):
+    return OrdersReturnsPage(homepage.page)
 
 @pytest.fixture(autouse=True)
 def before_and_after(page, email_service):

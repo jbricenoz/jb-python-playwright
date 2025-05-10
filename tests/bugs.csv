@@ -1,0 +1,28 @@
+
+Type,Issue ID,Description,Severity,Area
+UI,UI-001,Typo in page header: "test automaiton scripts" instead of "automation",Low,Global Header
+UI,UI-002,Layout issues on mobile devices,Medium,Responsive Design
+UI,UI-003,Menu behavior inconsistent on tablet viewports,Medium,Navigation
+UI,UI-004,Limited client-side validation for user inputs,High,Forms
+UI,UI-005,Incomplete error messages,Medium,Forms
+UI,UI-006,Missing alt text for product images,High,Accessibility
+UI,UI-007,Color contrast issues,Medium,Accessibility
+UI,UI-008,Keyboard navigation incomplete,High,Accessibility
+UI,UI-009,Image optimization opportunities,Medium,Performance
+UI,UI-010,Render-blocking resources,High,Performance
+UI,UI-011,Slow page load on product listings with many items,High,Performance
+Code,CD-001,JavaScript console errors,High,Frontend
+Code,CD-002,CSS specificity conflicts,Medium,Frontend
+Code,CD-003,Unused CSS/JS assets,Low,Frontend
+Code,CD-004,Error handling for API responses incomplete,High,API Integration
+Code,CD-005,Timeout issues for search functionality,Medium,API Integration
+Code,CD-006,Race conditions during checkout process,Critical,API Integration
+Code,CD-007,Data validation bypass,Critical,Form Handling
+Code,CD-008,Cross-site scripting (XSS) vulnerabilities in search functions,Critical,Form Handling
+Code,CD-009,CSRF protection verification,Critical,Form Handling
+Code,CD-010,Race conditions during concurrent cart updates,High,Cart/Checkout
+Code,CD-011,Session handling vulnerabilities,Critical,Cart/Checkout
+Code,CD-012,Price manipulation,Critical,Cart/Checkout
+Code,CD-013,Inefficient DOM manipulation,Medium,State Management
+Code,CD-014,Memory leaks from event listeners,Medium,State Management
+Code,CD-015,Browser back/forward navigation issues,High,State Management

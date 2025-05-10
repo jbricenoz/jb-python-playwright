@@ -151,7 +151,7 @@ class TestCheckoutFlow:
         assert int(cart_count) > 0, f"Cart counter should be updated after adding {product_name}"
 
 
-    @pytest.mark.only
+    @pytest.mark.cart
     def test_checkout_with_discount_code(self, homepage, product_page, checkout_page, csv_service):
         """Test the checkout process with a discount code"""
         # First add a product to cart

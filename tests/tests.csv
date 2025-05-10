@@ -1,0 +1,75 @@
+Category,Test Case ID,Test Case Description,Expected Result,Priority
+Home Page Navigation,HP-001,Test all main navigation menu items,All menu items direct to correct pages,High
+Home Page Navigation,HP-002,Test footer links functionality,All footer links work and direct to correct pages,Medium
+Home Page Navigation,HP-003,Verify logo redirects to home page,Logo click returns user to homepage,Medium
+Home Page Search,HP-004,Test search with valid keywords,Search returns relevant products,High
+Home Page Search,HP-005,Test search with invalid/special characters,Appropriate error or no results message shown,Medium
+Home Page Search,HP-006,Test with empty search,User is notified to enter search terms,Low
+Home Page Products,HP-007,Verify product images load correctly,All product images are visible and properly sized,High
+Home Page Products,HP-008,Test product links to detail pages,Links direct to correct product detail pages,High
+Home Page Products,HP-009,Validate price display formats,Prices display in correct format with currency symbol,Medium
+Home Page Responsive,HP-010,Test across desktop viewport,Layout displays correctly on desktop,High
+Home Page Responsive,HP-011,Test across tablet viewport,Layout adjusts appropriately for tablet,High
+Home Page Responsive,HP-012,Test across mobile viewport,Layout adjusts appropriately for mobile,High
+Home Page Responsive,HP-013,Verify menu collapse functionality on mobile,Menu collapses and expands correctly on mobile,Medium
+Category Pages,CP-001,Test filter options (price),Price filtering works correctly,High
+Category Pages,CP-002,Test filter options (color),Color filtering works correctly,High
+Category Pages,CP-003,Test filter options (size),Size filtering works correctly,High
+Category Pages,CP-004,Test multiple concurrent filters,Multiple filters can be applied simultaneously,Medium
+Category Pages,CP-005,Verify filter reset functionality,Filters can be cleared/reset,Medium
+Category Pages,CP-006,Test sorting by price (low-high),Products sort correctly by ascending price,High
+Category Pages,CP-007,Test sorting by price (high-low),Products sort correctly by descending price,High
+Category Pages,CP-008,Test sorting by name,Products sort correctly alphabetically,Medium
+Category Pages,CP-009,Test navigation between pages,Pagination controls work correctly,High
+Category Pages,CP-010,Verify correct item count per page,Item count matches selected display count,Medium
+Category Pages,CP-011,Test items per page dropdown,Items per page can be changed,Low
+Category Pages,CP-012,Toggle between grid and list views,View toggle works correctly,Low
+Category Pages,CP-013,Verify display consistency in both views,Product information consistent in both views,Low
+Product Detail,PD-001,Verify all product details display correctly,All product details (name/price/description) display,High
+Product Detail,PD-002,Test size selection options,Size options can be selected,High
+Product Detail,PD-003,Test color selection options,Color options can be selected,High
+Product Detail,PD-004,Validate inventory status indicators,Stock status displays correctly,Medium
+Product Detail,PD-005,Test adding single product,Product can be added to cart,Critical
+Product Detail,PD-006,Test quantity selector,Quantity can be changed,High
+Product Detail,PD-007,Test adding with selected options,Product with options can be added to cart,High
+Product Detail,PD-008,Test input validation for quantity,Invalid quantities are rejected,Medium
+Product Detail,PD-009,Verify image gallery functionality,Gallery navigation works correctly,Medium
+Product Detail,PD-010,Test zoom feature,Image zoom works correctly,Low
+Product Detail,PD-011,Verify thumbnail navigation,Thumbnails correctly switch main image,Medium
+Product Detail,PD-012,Verify relevant related products appear,Related products are relevant to main product,Low
+Shopping Cart,SC-001,Test adding multiple products,Multiple products can be added to cart,High
+Shopping Cart,SC-002,Test removing products,Products can be removed from cart,High
+Shopping Cart,SC-003,Test updating quantities,Quantities can be updated,High
+Shopping Cart,SC-004,Verify price calculations,Subtotal and total calculate correctly,Critical
+Shopping Cart,SC-005,Test cart retention across sessions,Cart contents persist across sessions,High
+Shopping Cart,SC-006,Verify cart merging for logged-in users,Guest cart merges with user cart on login,Medium
+Shopping Cart,SC-007,Test valid coupon application,Valid coupons apply discount correctly,High
+Shopping Cart,SC-008,Test invalid coupon error handling,Invalid coupons show appropriate error,Medium
+Shopping Cart,SC-009,Verify checkout button functionality,Checkout button directs to checkout process,Critical
+Checkout Process,CO-001,Test complete checkout flow as guest,Guest can complete checkout,Critical
+Checkout Process,CO-002,Verify required fields validation,Required fields are validated,High
+Checkout Process,CO-003,Test checkout with saved addresses,Saved addresses can be selected,High
+Checkout Process,CO-004,Test checkout with saved payment methods,Saved payment methods can be selected,High
+Checkout Process,CO-005,Verify available shipping methods,All shipping methods display correctly,High
+Checkout Process,CO-006,Test shipping cost calculations,Shipping costs calculate correctly,Critical
+Checkout Process,CO-007,Test address validation,Addresses are validated,Medium
+Checkout Process,CO-008,Test all available payment options,All payment options function correctly,Critical
+Checkout Process,CO-009,Verify payment form validation,Payment form validates input correctly,High
+Checkout Process,CO-010,Test error handling for declined payments,Payment errors display appropriately,High
+Checkout Process,CO-011,Verify order summary accuracy,Order summary matches cart contents and totals,Critical
+Checkout Process,CO-012,Test edit functionality from review page,Order can be edited from review page,Medium
+Checkout Process,CO-013,Verify confirmation page details,Order confirmation shows correct information,High
+User Account,UA-001,Test new account creation,New accounts can be created successfully,High
+User Account,UA-002,Verify field validations,Registration form validates fields correctly,High
+User Account,UA-003,Test password requirement enforcement,Password requirements are enforced,High
+User Account,UA-004,Test login with valid credentials,Valid credentials allow login,Critical
+User Account,UA-005,Test login with invalid credentials,Invalid credentials show appropriate error,High
+User Account,UA-006,Verify secure logout process,Logout works correctly,High
+User Account,UA-007,Test profile information updates,Profile can be updated,Medium
+User Account,UA-008,Test address book management,Addresses can be added/edited/removed,Medium
+User Account,UA-009,Verify order history display,Order history displays correctly,Medium
+Wish List,WL-001,Test adding products to wish list,Products can be added to wish list,Medium
+Wish List,WL-002,Test adding products with options,Products with options can be added to wish list,Medium
+Wish List,WL-003,Test removing items,Items can be removed from wish list,Medium
+Wish List,WL-004,Test moving items to cart,Items can be moved from wish list to cart,Medium
+Wish List,WL-005,Test sharing wish list functionality,Wish list can be shared,Low
