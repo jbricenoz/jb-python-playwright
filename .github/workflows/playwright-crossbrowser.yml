@@ -26,10 +26,11 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           python -m pip install --upgrade pip
-          pip install pytest
-          pip install -r requirements.txt
+          python -m pip install pytest
+          python -m pip install -r requirements.txt
           playwright install --with-deps
 
       - name: Run Playwright tests (${{ matrix.browser }})
         run: |
+          source venv/bin/activate
           pytest e2e/ --browser=${{ matrix.browser }} --headless --retries=1 --trace=on
