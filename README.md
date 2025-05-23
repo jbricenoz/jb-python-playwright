@@ -1,6 +1,6 @@
 # Playwright Python Automation Framework
 
-This repository contains a robust, modular Playwright automation framework for the Magento e-commerce demo site.
+This repository contains a robust, modular Playwright automation framework for the Magento e-commerce demo site, built with Python and Pytest for reliable end-to-end testing.
 
 ---
 
@@ -15,19 +15,53 @@ This repository contains a robust, modular Playwright automation framework for t
 
 ---
 
-## Project Structure Explained
+## Project Structure
 
-- `e2e/` — End-to-end test cases using Playwright and Pytest
-- `components/` — Page Object classes, organized by feature/section
-  - `home/` — Home page components (e.g., `homepage.py`, `header_content.py`, `nav_sections.py`)
-- `data/` — Test data files (e.g., CSV files for test input)
-- `fixtures/` — Pytest fixtures for browser/session/test setup
-- `service/` — Utility modules for:
-  - **CSVService**: Read/write CSV test data
-  - **EmailService**: Send emails (e.g., for notifications or reports)
-- `.github/` — Issue/PR templates and GitHub Actions workflows for CI
-- `playwright.config.py` — Project-level config for Playwright and Pytest
-- `requirements.txt` — All Python dependencies
+```
+.
+├── .github/                     # GitHub Actions workflows and templates
+│   └── workflows/
+│       └── playwright-crossbrowser.yml  # CI/CD pipeline configuration
+├── components/                  # Page Object Models (POM) organized by feature
+│   ├── checkout/               # Checkout related page objects
+│   │   └── checkout_page.py
+│   ├── home/                    # Home page components
+│   │   ├── header_content.py
+│   │   ├── homepage.py
+│   │   ├── nav_sections.py
+│   │   └── panel_navbar.py
+│   ├── orders/                  # Orders related page objects
+│   │   └── orders_returns.py
+│   └── product/                 # Product related page objects
+│       └── product_page.py
+├── data/                        # Test data files
+│   └── sample_test_data.csv     # Sample test data in CSV format
+├── e2e/                         # End-to-end test cases
+│   ├── test_cart_management.py
+│   ├── test_checkout_flow.py
+│   ├── test_homepage.py
+│   ├── test_homepage_elements.py
+│   └── test_orders_returns.py
+├── fixtures/                    # Pytest fixtures
+│   └── pw_fixture.py           # Playwright browser and context fixtures
+├── reports/                     # Test execution reports
+│   ├── playwright_report.html
+│   └── playwright_report.json
+├── service/                     # Service modules
+│   ├── csv_service.py          # CSV data handling
+│   ├── email_service.py        # Email notifications
+│   └── webhook_reporter.py     # Webhook reporting
+├── tests/                       # Test data and test cases
+│   ├── bugs.csv
+│   └── tests.csv
+├── .gitignore
+├── CHANGELOG.md
+├── LICENSE
+├── playwright.config.py         # Playwright configuration
+├── pw.sh                       # Helper script for running tests
+├── pytest.ini                  # Pytest configuration
+└── requirements.txt            # Python dependencies
+```
 
 ---
 
@@ -76,30 +110,232 @@ email_service.send_email(
 
 ---
 
-## How to Use This Framework
+## Getting Started
 
-### 1. Setup Environment
+### Prerequisites
+
+- Python 3.8 or higher
+- pip (Python package installer)
+- Git (for version control)
+- Node.js (required for Playwright)
+
+### 1. Clone the Repository
 
 ```bash
-# create a directory for the project (Optional)
-mkdir my_workspace
-cd my_workspace
-# clone the repository
 git clone https://github.com/jbricenoz/jb-python-playwright.git
-# cd into the project directory
 cd jb-python-playwright
-# create a virtual environment and activate it
-python3 -m venv venv
-source venv/bin/activate
-# upgrade pip
-pip install --upgrade pip
-# install dependencies
-pip install -r requirements.txt
-# install playwright
-playwright install
 ```
 
-### 2. Configure Playwright (Optional & Advanced)
+### 2. Set Up Python Virtual Environment
+
+```bash
+# Create a virtual environment
+python3 -m venv venv
+
+# Activate the virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+
+```bash
+# Upgrade pip
+pip install --upgrade pip
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Install Playwright browsers
+playwright install
+
+# Install Playwright dependencies
+playwright install-deps
+```
+
+### 4. Verify Installation
+
+```bash
+# Check Python version
+python --version
+
+# Check pip version
+pip --version
+
+# Verify Playwright installation
+playwright --version
+```
+
+## Running Tests
+
+### Basic Test Execution
+
+Run all tests:
+```bash
+./pw.sh
+```
+
+Run tests in headed mode (visible browser):
+```bash
+./pw.sh --headed
+```
+
+Run tests in a specific browser:
+```bash
+./pw.sh --browser=firefox  # or chromium, webkit
+```
+
+### Running Specific Tests
+
+Run a single test file:
+```bash
+pytest e2e/test_homepage.py -v
+```
+
+Run tests with a specific marker:
+```bash
+pytest -m smoke -v
+```
+
+Run tests matching a specific pattern:
+```bash
+pytest -k "test_search" -v
+```
+
+### Test Reports
+
+HTML and JSON reports are automatically generated in the `reports/` directory after each test run.
+
+To view the HTML report:
+```bash
+open reports/playwright_report.html  # On macOS
+# or
+start reports/playwright_report.html  # On Windows
+```
+
+## Advanced Configuration
+
+### Environment Variables
+
+You can customize test execution using environment variables:
+
+```bash
+# Set base URL for tests
+export BASE_URL="https://example.com"
+
+# Run in headless mode
+export HEADLESS="true"
+
+# Set browser (chromium, firefox, webkit)
+export BROWSER="firefox"
+
+# Set timeout (ms)
+export PLAYWRIGHT_TIMEOUT=30000
+
+# Set number of parallel workers
+export PLAYWRIGHT_WORKERS=4
+```
+
+### Playwright Configuration
+
+Edit `playwright.config.py` to modify default settings:
+
+```python
+# Browser configuration
+browser = {
+    'browser': os.getenv('BROWSER', 'chromium'),
+    'headless': os.getenv('HEADLESS', 'true').lower() == 'true',
+    'slow_mo': int(os.getenv('PLAYWRIGHT_SLOWMO', '0')),
+}
+
+# Test configuration
+test_config = {
+    'base_url': os.getenv('BASE_URL', 'https://example.com'),
+    'timeout': int(os.getenv('PLAYWRIGHT_TIMEOUT', '30000')),
+    'retries': int(os.getenv('PLAYWRIGHT_RETRIES', '1')),
+}
+
+# Reporting configuration
+reporting = {
+    'trace': os.getenv('PLAYWRIGHT_TRACE', 'retain-on-failure'),
+    'video': os.getenv('PLAYWRIGHT_VIDEO', 'retain-on-failure'),
+    'screenshot': os.getenv('PLAYWRIGHT_SCREENSHOT', 'only-on-failure'),
+}
+```
+
+## Parallel Test Execution
+
+Run tests in parallel using pytest-xdist:
+
+```bash
+# Run tests with 4 parallel workers
+./pw.sh -n 4
+
+# Run tests in parallel with specific browser and headed mode
+./pw.sh --browser=firefox --headed -n 3
+```
+
+Set the number of workers using environment variable:
+```bash
+export PLAYWRIGHT_WORKERS=4
+./pw.sh
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Browser not found**
+   ```
+   Error: Browser not found. Did you install the browser?
+   ```
+   Solution: Run `playwright install` to install all required browsers.
+
+2. **Missing dependencies**
+   ```
+   OSError: [Errno 8] Exec format error
+   ```
+   Solution: Make sure you have all system dependencies installed. On Ubuntu/Debian:
+   ```bash
+   sudo apt-get install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 libatspi2.0-0
+   ```
+
+3. **Slow test execution**
+   - Run in headless mode for faster execution
+   - Reduce the number of parallel workers if system resources are limited
+   - Use `--workers auto` to automatically detect the optimal number of workers
+
+4. **Test failures**
+   - Run with `--headed` to see the browser UI
+   - Enable video recording with `--video on`
+   - Capture trace with `--trace on`
+   - Check the HTML report for detailed failure information
+
+## CI/CD Integration
+
+This project includes a GitHub Actions workflow (`.github/workflows/playwright-crossbrowser.yml`) that runs tests on push and pull requests. The workflow:
+
+1. Sets up Python and Node.js
+2. Installs dependencies
+3. Runs tests across multiple browsers
+4. Uploads test artifacts (reports, traces, videos)
+5. Fails the build if tests fail
+
+To customize the workflow, edit the YAML file in `.github/workflows/`.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 - Edit `playwright/playwright.config.py` to change base URL, browser, headless mode, timeouts, retries, trace, video, screenshot, parallel workers, or output directories.
 - You can override config via environment variables or pytest CLI options:
   - `BASE_URL`, `BROWSER`, `HEADLESS`, `PLAYWRIGHT_TIMEOUT`, `PLAYWRIGHT_RETRIES`, `PLAYWRIGHT_WORKERS`, `PLAYWRIGHT_TRACE`, `PLAYWRIGHT_VIDEO`, `PLAYWRIGHT_SCREENSHOT`, `PLAYWRIGHT_SLOWMO`
